@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX with XML</title>
+</head>
+<body>
+
+<h2>AJAX Data Exchange using XML</h2>
+
+<button onclick="loadXML()">Load Data</button>
+
+<p id="output"></p>
+
+<script>
+function loadXML()
+{
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState == 4 && xhr.status == 200)
+        {
+            var xmlDoc = xhr.responseXML;
+
+            var name = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+            var course = xmlDoc.getElementsByTagName("course")[0].childNodes[0].nodeValue;
+
+            document.getElementById("output").innerHTML =
+            "Name: " + name + "<br>Course: " + course;
+        }
+    };
+
+    xhr.open("GET", "file1.xml", true);
+    xhr.send();
+}
+</script>
+
+</body>
+</html>
